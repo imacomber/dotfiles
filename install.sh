@@ -51,7 +51,6 @@ install_dotfiles() {
 
     mkdir -p "$HOME/.config-backup"
     config checkout 2>&1 | grep -E "\s+\." | awk '{print $1}' | while read -r file; do
-      mkdir -p "$(dirname "$HOME/.config-backup/$file")"
       mv "$HOME/$file" "$HOME/.config-backup/$file"
     done
   fi
