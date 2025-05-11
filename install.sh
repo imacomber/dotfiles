@@ -72,8 +72,8 @@ initialize_tmux() {
   echo "* initializing tmux 🪟 *"
   newline
 
-  if command -v tmux >/dev/null; then
-    tmux source "$HOME/.tmux.conf"
+  if command -v /opt/homebrew/opt/tmux/bin/tmux >/dev/null; then
+    /opt/homebrew/opt/tmux/bin/tmux source "$HOME/.tmux.conf"
   else
     echo "⚠️ tmux not found, skipping."
   fi
