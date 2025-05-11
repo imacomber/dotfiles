@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 newline() {
-  printf "\n"
+  echo "\n"
 }
 
 config() {
