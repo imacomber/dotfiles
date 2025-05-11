@@ -39,7 +39,7 @@ install_dotfiles() {
   if [[ -d "$HOME/.cfg" ]]; then
     echo "⚠️ dotfiles repo already exists; skipping clone."
   else
-    git clone --bare git@github.com:imacomber/dotfiles.git "$HOME/.cfg"
+    git clone --bare https://github.com/imacomber/dotfiles.git "$HOME/.cfg"
   fi
 
   if config checkout; then
