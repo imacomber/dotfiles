@@ -13,7 +13,7 @@ config() {
 }
 
 install_homebrew() {
-  echo "* installing Homebrew 🍺 *"
+  echo "* installing homebrew 🍺 *"
   newline
 
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -23,15 +23,13 @@ install_homebrew() {
   elif [[ -x /usr/local/bin/brew ]]; then
     eval "$(/usr/local/bin/brew shellenv)"
   else
-    echo "❌ Homebrew not found after install. Exiting."
+    echo "❌ homebrew not found after install; exiting."
     exit 1
   fi
 
   newline
-  echo "* bundling formulae and casks 🍻 *"
+  echo "* homebrew successfully installed 🍻 *"
   newline
-
-  brew bundle || echo "⚠️ brew bundle failed (might be missing Brewfile)"
 }
 
 install_dotfiles() {
@@ -39,7 +37,7 @@ install_dotfiles() {
   newline
 
   if [[ -d "$HOME/.cfg" ]]; then
-    echo "⚠️ Dotfiles repo already exists. Skipping clone."
+    echo "⚠️ dotfiles repo already exists; skipping clone."
   else
     git clone --bare git@github.com:imacomber/dotfiles.git "$HOME/.cfg"
   fi
@@ -62,6 +60,13 @@ install_dotfiles() {
   config config status.showUntrackedFiles no
 
   echo "* successfully installed dotfiles ✅ *"
+}
+
+bundle_brewfile() {
+  echo "* bundling homebrew formulae and casks 🍻 *"
+  newline
+
+  brew bundle || echo "⚠️ brew bundle failed (might be missing Brewfile)"
 }
 
 initialize_tmux() {
@@ -102,6 +107,7 @@ customize_screenshots() {
 main() {
   install_homebrew
   install_dotfiles
+  bundle_brewfile
   initialize_tmux
   install_nerdfont
   customize_screenshots
