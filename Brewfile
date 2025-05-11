@@ -6,6 +6,7 @@ brew "libyaml" # C library for parsing and editing YAML
 brew "neovim" # vim editor
 brew "ripgrep" # line-oriented search tool that recursively searches
 brew "tmux" # terminal multiplexer
+brew "yq" # process YAML docs from CLI; req for tmux plugins
 
 cask "nikitabobko/tap/aerospace" # i3-like tiling window manager for macOS
 cask "kubecontext" # menu bar app for managing kubernetes contexts
