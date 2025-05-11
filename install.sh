@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 newline() {
-  echo "\n"
+  printf "\n"
 }
 
 config() {
-  /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+  /usr/bin/git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
 }
 
 install_homebrew() {
@@ -28,23 +28,16 @@ install_dotfiles() {
 
   git clone --bare git@github.com:imacomber/dotfiles.git $HOME/.cfg
 
-  config checkout
+  config checkout 2>&1 | grep -E "\s+\." | awk '{print $1}' | while read -r file; do
+    mv "$file" ".config-backup/$file"
+  done
 
-  if [ $? = 0 ]; then
-    echo "* successfully cloned and checked out repo ✅ *"
-    newline
-  else
-    echo "* backing up existing dotfiles 💾 *"
-    newline
-
-    mkdir -p .config-backup
-    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
-  fi;
+  echo "* successfully cloned and checked out repo ✅ *"
 
   config checkout
   config config status.showUntrackedFiles no
 
-  echo "* successfull installed dotfiles ✅ *"
+  echo "* successfully installed dotfiles ✅ *"
 }
 
 initialize_tmux() {
