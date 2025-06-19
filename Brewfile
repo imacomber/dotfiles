@@ -5,6 +5,7 @@ brew "lazygit" # neovim plugin for git CLI UI
 brew "libyaml" # C library for parsing and editing YAML
 brew "neovim" # vim editor
 brew "ripgrep" # line-oriented search tool that recursively searches
+brew "starship" # The minimal, blazing-fast, and infinitely customizable prompt for any shell!
 brew "tmux" # terminal multiplexer
 brew "yq" # process YAML docs from CLI; req for tmux plugins
 
