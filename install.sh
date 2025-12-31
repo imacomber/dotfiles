@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
+
+TMUX_PREFIX="C-b"
 
 LOGFILE="$HOME/setup.log"
 exec > >(tee -a "$LOGFILE") 2>&1
@@ -12,17 +15,30 @@ config() {
   /usr/bin/git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
 }
 
+ensure_brew_env() {
+  # Ensure Homebrew is on PATH for *this* script execution.
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  elif command -v brew >/dev/null 2>&1; then
+    # brew already on PATH; still useful to pull in its env vars
+    eval "$(brew shellenv)"
+  else
+    return 1
+  fi
+
+  # Make sure the shell refreshes its command hash table (bash/zsh behavior)
+  hash -r 2>/dev/null || true
+}
+
 install_homebrew() {
   echo "* installing homebrew 🍺 *"
   newline
 
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  if [[ -x /opt/homebrew/bin/brew ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  elif [[ -x /usr/local/bin/brew ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
-  else
+  if ! ensure_brew_env; then
     echo "❌ homebrew not found after install; exiting."
     exit 1
   fi
@@ -65,18 +81,68 @@ bundle_brewfile() {
   echo "* bundling homebrew formulae and casks 🍻 *"
   newline
 
+  ensure_brew_env || true
   brew bundle || echo "⚠️ brew bundle failed (might be missing Brewfile)"
+
+  ensure_brew_env || true
 }
 
-initialize_tmux() {
-  echo "* initializing tmux 🪟 *"
+setup_tmux() {
+  echo "* setting up tmux 🪟 *"
   newline
 
-  if command -v /opt/homebrew/opt/tmux/bin/tmux >/dev/null; then
-    /opt/homebrew/opt/tmux/bin/tmux source "$HOME/.tmux.conf"
-  else
-    echo "⚠️ tmux not found, skipping."
+  ensure_brew_env || true
+
+  if [[ ! -f "$HOME/.tmux.conf" ]]; then
+    echo "⚠️ ~/.tmux.conf not found; skipping tmux setup."
+    return 0
   fi
+
+  # Locate tmux (works for Intel + Apple Silicon + generic PATH)
+  local tmux_bin=""
+  if command -v tmux >/dev/null 2>&1; then
+    tmux_bin="$(command -v tmux)"
+  elif command -v brew >/dev/null 2>&1; then
+    tmux_bin="$(brew --prefix tmux 2>/dev/null)/bin/tmux" || true
+  fi
+
+  if [[ -z "$tmux_bin" || ! -x "$tmux_bin" ]]; then
+    echo "⚠️ tmux not found; skipping."
+    return 0
+  fi
+
+  # Bootstrap TPM if your config expects it
+  # (Safe to run even if you don't use TPM—it's a no-op unless referenced.)
+  local tpm_dir="$HOME/.tmux/plugins/tpm"
+  if grep -qE "@plugin[[:space:]]+['\"]tmux-plugins/tpm['\"]" "$HOME/.tmux.conf"; then
+    if [[ ! -d "$tpm_dir" ]]; then
+      echo "* bootstrapping TPM (tmux plugin manager) 🔌 *"
+      mkdir -p "$HOME/.tmux/plugins"
+      git clone https://github.com/tmux-plugins/tpm "$tpm_dir" || true
+    fi
+  fi
+
+  # Run everything inside a temporary detached tmux session so install.sh stays non-interactive
+  local session="__tmux_setup__"
+
+  "$tmux_bin" has-session -t "$session" 2>/dev/null && "$tmux_bin" kill-session -t "$session" || true
+  "$tmux_bin" new-session -d -s "$session"
+
+  # Load tmux config
+  "$tmux_bin" source-file "$HOME/.tmux.conf" || true
+
+  # Trigger TPM install (<prefix> + I)
+  # This is the same as pressing C-b then Shift+i.
+  "$tmux_bin" send-keys -t "$session" "$TMUX_PREFIX" I
+
+  # Allow time for TPM to clone plugins (network-dependent)
+  # If you want to be stricter, increase this to 5–10 seconds.
+  sleep 3
+
+  # Tear down the temporary session
+  "$tmux_bin" kill-session -t "$session" || true
+
+  echo "* tmux configured and plugins installed ✅ *"
 }
 
 install_nerdfont() {
@@ -107,7 +173,7 @@ main() {
   install_homebrew
   install_dotfiles
   bundle_brewfile
-  initialize_tmux
+  setup_tmux
   install_nerdfont
   customize_screenshots
 
