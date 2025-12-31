@@ -173,9 +173,7 @@ setup_iterm2_profile() {
   echo "* configuring iTerm2 profile (dynamic profile + default) *"
   newline
 
-  # Where your exported profile JSON lives after dotfiles checkout.
-  # If you store it elsewhere in the repo, update this path.
-  local PROFILE_SRC="$HOME/Profiles.json"
+  local PROFILE_SRC="$HOME/iterm_profiles.json"
 
   if [[ ! -f "$PROFILE_SRC" ]]; then
     echo "⚠️ iTerm2 profile JSON not found at: $PROFILE_SRC"
