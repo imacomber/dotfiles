@@ -205,15 +205,31 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace C'
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome'
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
 run = 'move-node-to-workspace C'
 
 [[on-window-detected]]
 if.app-id = 'notion.id'
+run = 'move-node-to-workspace N'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.freeform'
+run = 'move-node-to-workspace N'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
 run = 'move-node-to-workspace N'
 
 [[on-window-detected]]

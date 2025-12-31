@@ -1,3 +1,4 @@
+brew "asdf" # version manager for various plugins
 brew "fzf" # fuzzy-finder for terminal search
 brew "git" # git CLI
 brew "graphviz" # open source graph visualization
