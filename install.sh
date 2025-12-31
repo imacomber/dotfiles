@@ -169,6 +169,56 @@ customize_screenshots() {
   killall SystemUIServer
 }
 
+setup_iterm2_profile() {
+  echo "* configuring iTerm2 profile (dynamic profile + default) *"
+  newline
+
+  # Where your exported profile JSON lives after dotfiles checkout.
+  # If you store it elsewhere in the repo, update this path.
+  local PROFILE_SRC="$HOME/Profiles.json"
+
+  if [[ ! -f "$PROFILE_SRC" ]]; then
+    echo "⚠️ iTerm2 profile JSON not found at: $PROFILE_SRC"
+    echo "   Skipping iTerm2 profile setup."
+    return 0
+  fi
+
+  # Ensure jq exists (brew bundle *may* already install it, but this makes the step robust).
+  ensure_brew_env || true
+  if ! command -v jq >/dev/null 2>&1; then
+    if command -v brew >/dev/null 2>&1; then
+      brew install jq || true
+    fi
+  fi
+  if ! command -v jq >/dev/null 2>&1; then
+    echo "⚠️ jq is required to read the iTerm2 profile GUID; skipping."
+    return 0
+  fi
+
+  # Quit iTerm2 if it's running so it will reload preferences/profiles cleanly.
+  osascript -e 'tell application "iTerm2" to quit' >/dev/null 2>&1 || true
+
+  # Install as a Dynamic Profile so iTerm2 auto-imports it on launch.
+  local DYNAMIC_DIR="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
+  mkdir -p "$DYNAMIC_DIR"
+  cp -f "$PROFILE_SRC" "$DYNAMIC_DIR/iterm_profiles.json"
+
+  # Extract the first profile GUID and set it as the iTerm2 default profile.
+  # (If you export multiple profiles, adjust the jq selector.)
+  local GUID
+  GUID="$(jq -r '.Profiles[0].Guid // empty' "$PROFILE_SRC")"
+
+  if [[ -z "$GUID" ]]; then
+    echo "⚠️ Could not find .Profiles[0].Guid in $PROFILE_SRC; skipping default-profile setting."
+    return 0
+  fi
+
+  # Set default profile GUID (new windows/tabs will use this profile).
+  defaults write com.googlecode.iterm2 "Default Bookmark Guid" -string "$GUID"
+
+  echo "* iTerm2 profile installed and default set ✅ (Guid: $GUID) *"
+}
+
 main() {
   install_homebrew
   install_dotfiles
@@ -176,6 +226,7 @@ main() {
   setup_tmux
   install_nerdfont
   customize_screenshots
+  setup_iterm2_profile
 
   echo "* setup complete 🎉 *"
 }
