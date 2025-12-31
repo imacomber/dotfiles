@@ -1,7 +1,9 @@
 ## Installation
-1. Manually copy the contents of [install.sh](https://github.com/imacomber/dotfiles/blob/main/install.sh) on the destination computer.
-2. Allow the new script you created to be executable by running the following command: `chmod +x install.sh`
-3. Run the shell script using the following command: `./install.sh`
+Run the following command from your terminal:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/imacomber/dotfiles/refs/heads/main/install.sh)"
+```
 
 ## Post-Install
 Once the installation and setup has successfully completed, take the following steps to add some final touches:
