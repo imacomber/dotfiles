@@ -77,6 +77,31 @@ install_dotfiles() {
   echo "* successfully installed dotfiles ✅ *"
 }
 
+setup_vim() {
+  echo "* setting up Vim *"
+  newline
+
+  if ! command -v git >/dev/null 2>&1; then
+    echo "⚠️ git not found; cannot install Vundle. Skipping."
+    return 0
+  fi
+
+  local vundle_dir="$HOME/.vim/bundle/Vundle.vim"
+  if [[ -d "$vundle_dir/.git" ]]; then
+    echo "✅ Vundle already installed; skipping clone."
+  else
+    mkdir -p "$HOME/.vim/bundle"
+    git clone https://github.com/VundleVim/Vundle.vim.git "$vundle_dir"
+  fi
+
+  if command -v vim >/dev/null 2>&1 && [[ -f "$HOME/.vimrc" ]]; then
+    vim -E -s -u "$HOME/.vimrc" +PluginInstall +qall || true
+    echo "* Vim plugins installed via Vundle ✅ *"
+  else
+    echo "⚠️ vim or ~/.vimrc not found; skipping Vundle PluginInstall."
+  fi
+}
+
 bundle_brewfile() {
   echo "* bundling homebrew formulae and casks 🍻 *"
   newline
@@ -225,6 +250,7 @@ main() {
   install_nerdfont
   customize_screenshots
   setup_iterm2_profile
+  setup_vim
 
   echo "* setup complete 🎉 *"
 }
