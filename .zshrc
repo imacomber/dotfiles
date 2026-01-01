@@ -1,10 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-export PATH=/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH
 export ASDF_DATA_DIR=/Users/ianmacomber/.asdf
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 export PGDATABASE=postgres
@@ -43,10 +39,3 @@ alias gss='git stash show'
 alias gsd='git stash drop'
 
 eval "$(starship init zsh)"
-
-# poetry type-ahead settings
-poetry completions zsh > ~/.zfunc/_poetry
-fpath+=~/.zfunc
-autoload -Uz compinit && compinit
-
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
