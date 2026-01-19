@@ -1,14 +1,15 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH:$HOME/docker-credential-osxkeychain-v0.9.5.darwin-arm64
 
 export ASDF_DATA_DIR=/Users/ianmacomber/.asdf
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
-export PGDATABASE=postgres
 export TERM="screen-256color"
 export EDITOR='vim'
 
 source <(fzf --zsh)
 # bindkey '^R' history-incremental-search-backward
+
+export SPX_WORKSTATION_PROFILES="backend,datascience,devops,frontend,rcis-workspace"
 
 alias vim='vim'
 alias sz='source ~/.zshrc'
