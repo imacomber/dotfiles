@@ -9,3 +9,7 @@
 	empty = commit --allow-empty
 [fetch]
 	prune = true
+[include]
+	path = /Users/ianmacomber/.gitconfig-swoop
+[pull]
+	rebase = true

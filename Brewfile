@@ -1,4 +1,5 @@
 brew "asdf" # version manager for various plugins
+brew "aws-vault" # tool to securely store and access AWS credentials
 brew "colima" # Container runtimes on MacOS (and Linux) with minimal setup
 brew "docker" # Docker client
 brew "docker-credential-helper" # docker credential helper

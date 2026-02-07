@@ -6,6 +6,8 @@ export PATH="$ASDF_DATA_DIR/shims:$PATH"
 export TERM="screen-256color"
 export EDITOR='vim'
 
+export AWS_EC2_METADATA_DISABLED=true
+
 source <(fzf --zsh)
 # bindkey '^R' history-incremental-search-backward
 
@@ -18,6 +20,9 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias rt='rspec'
 alias dbm='rails db:migrate'
 alias tmux="TERM=screen-256color-bce tmux"
+
+alias dcu='docker-compose up && docker-compose logs -f'
+alias dcd='docker-compose down'
 
 alias gd='git diff'
 alias gp='git fetch origin -p && git rebase origin/$(git rev-parse --abbrev-ref HEAD)'
