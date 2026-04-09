@@ -194,6 +194,106 @@ customize_screenshots() {
   killall SystemUIServer
 }
 
+install_claude_code() {
+  echo "* installing Claude Code CLI 🤖 *"
+  newline
+
+  if type -P claude >/dev/null 2>&1; then
+    echo "✅ Claude Code already installed at $(type -P claude); skipping."
+    newline
+    return 0
+  fi
+
+  curl -fsSL https://claude.ai/install.sh | bash
+  hash -r 2>/dev/null || true
+
+  echo "* Claude Code CLI installed ✅ *"
+  newline
+}
+
+setup_rails_mcp() {
+  echo "* setting up rails-mcp-server 🛤️ *"
+  newline
+
+  if ! command -v gem >/dev/null 2>&1; then
+    echo "⚠️  gem not found; skipping rails-mcp-server install."
+    newline
+    return 0
+  fi
+
+  gem install rails-mcp-server
+
+  echo "* rails-mcp-server gem installed ✅ *"
+  newline
+  echo "* configuring rails-mcp-server projects (interactive) *"
+  newline
+
+  rails-mcp-config
+
+  echo "* downloading rails-mcp-server resources *"
+  newline
+
+  rails-mcp-server-download-resources rails
+  rails-mcp-server-download-resources turbo
+  rails-mcp-server-download-resources stimulus
+
+  echo "* registering rails MCP server with Claude Code *"
+  newline
+
+  claude mcp add rails --scope user -- rails-mcp-server
+
+  echo "* rails-mcp-server configured ✅ *"
+  newline
+}
+
+setup_claude_plugins() {
+  echo "* installing Claude Code plugins 🧩 *"
+  newline
+
+  if ! type -P claude >/dev/null 2>&1; then
+    echo "⚠️  claude not found; skipping plugin install."
+    newline
+    return 0
+  fi
+
+  # Register the superpowers-ruby third-party marketplace
+  echo "Registering superpowers-ruby marketplace..."
+  claude plugins marketplace add lucianghinda/superpowers-ruby \
+    || echo "⚠️  superpowers-ruby marketplace registration failed or already registered."
+
+  # Official plugins (claude-plugins-official marketplace is built-in)
+  local official_plugins=(
+    ruby-lsp
+    slack
+    context7
+    code-review
+    github
+    playwright
+  )
+
+  for plugin in "${official_plugins[@]}"; do
+    echo "Installing $plugin plugin..."
+    claude plugins install "$plugin" --scope user \
+      || echo "⚠️  $plugin install failed or already installed."
+  done
+
+  # Third-party plugins
+  echo "Installing superpowers-ruby plugin..."
+  claude plugins install superpowers-ruby@superpowers-ruby --scope user \
+    || echo "⚠️  superpowers-ruby install failed or already installed."
+
+  if [[ ! -f "$HOME/.claude/CLAUDE.md" ]]; then
+    echo "⚠️  ~/.claude/CLAUDE.md not found."
+    echo "   If your dotfiles track it, run install_dotfiles first."
+  else
+    echo "✅ ~/.claude/CLAUDE.md present."
+  fi
+
+  newline
+  echo "* Claude Code plugins installed ✅ *"
+  newline
+}
+
 setup_iterm2_profile() {
   echo "* configuring iTerm2 profile (dynamic profile + default) *"
   newline
@@ -251,6 +351,9 @@ main() {
   customize_screenshots
   setup_iterm2_profile
   setup_vim
+  install_claude_code
+  setup_rails_mcp
+  setup_claude_plugins
 
   echo "* setup complete 🎉 *"
 }

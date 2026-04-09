@@ -4,6 +4,9 @@ set -euo pipefail
 # uninstall.sh
 #
 # Removes the changes made by install.sh:
+# - Uninstalls Claude Code plugins and CLI (settings/CLAUDE.md are removed with dotfiles)
+# - Cleans up legacy MCP config (~/.claude/mcp.json) if present
+# - Removes rails-mcp-server gem
 # - Removes dotfiles checked out from the bare repo (~/.cfg)
 # - Optionally uninstalls Homebrew and/or Brewfile-installed packages
 # - Removes the custom Nerd Font that was copied
@@ -16,6 +19,7 @@ set -euo pipefail
 # Optional env flags:
 #   REMOVE_BREW_BUNDLE=1   -> attempt to uninstall Brewfile formulae/casks/taps
 #   REMOVE_HOMEBREW=1      -> run the official Homebrew uninstall script (also implies brew bundle removal attempt)
+#   KEEP_CLAUDE=1          -> skip Claude Code uninstallation (plugins, settings, CLI)
 
 exec > >(tee /dev/stdout) 2>&1
 
@@ -230,6 +234,85 @@ revert_screenshots() {
   fi
 }
 
+remove_claude_plugins() {
+  echo "* uninstalling Claude Code plugins 🧩 *"
+  newline
+
+  if ! have_cmd claude; then
+    echo "⚠️  claude not found; skipping plugin uninstall."
+    return 0
+  fi
+
+  local official_plugins=(
+    ruby-lsp
+    slack
+    context7
+    code-review
+    github
+    playwright
+  )
+
+  for plugin in "${official_plugins[@]}"; do
+    echo "Uninstalling $plugin plugin..."
+    claude plugins uninstall "$plugin" --scope user \
+      || echo "⚠️  $plugin uninstall failed or not installed."
+  done
+
+  echo "Uninstalling superpowers-ruby plugin..."
+  claude plugins uninstall superpowers-ruby@superpowers-ruby --scope user \
+    || echo "⚠️  superpowers-ruby uninstall failed or not installed."
+
+  echo "Removing superpowers-ruby marketplace..."
+  claude plugins marketplace remove superpowers-ruby \
+    || echo "⚠️  superpowers-ruby marketplace removal failed or not registered."
+
+  echo "* Claude Code plugins uninstalled ✅ *"
+}
+
+remove_legacy_mcp_config() {
+  # Clean up legacy MCP config if it exists from a previous install
+  local mcp_file="$HOME/.claude/mcp.json"
+  if [[ -f "$mcp_file" ]]; then
+    echo "* removing legacy MCP config 🔌 *"
+    rm -f "$mcp_file"
+    echo "removed: $mcp_file"
+  fi
+}
+
+remove_rails_mcp() {
+  echo "* removing rails-mcp-server 🛤️ *"
+  newline
+
+  if ! have_cmd gem; then
+    echo "⚠️  gem not found; skipping rails-mcp-server removal."
+    return 0
+  fi
+
+  if gem list --installed rails-mcp-server >/dev/null 2>&1; then
+    gem uninstall rails-mcp-server --executables || echo "⚠️  rails-mcp-server uninstall failed."
+    echo "* rails-mcp-server removed ✅ *"
+  else
+    echo "ℹ️  rails-mcp-server not installed; skipping."
+  fi
+}
+
+uninstall_claude_code() {
+  echo "* uninstalling Claude Code CLI 🤖 *"
+  newline
+
+  if ! have_cmd claude; then
+    echo "⚠️  claude not found; skipping CLI uninstall."
+    return 0
+  fi
+
+  # Claude Code provides a built-in uninstall command
+  claude uninstall || echo "⚠️  claude uninstall command failed; you may need to remove it manually."
+
+  hash -r 2>/dev/null || true
+
+  echo "* Claude Code CLI uninstalled ✅ *"
+}
+
 remove_setup_log() {
   if [[ "${KEEP_LOG:-0}" == "1" ]]; then
     echo "ℹ️ KEEP_LOG=1 set; leaving $HOME/setup.log in place."
@@ -258,6 +341,24 @@ main() {
     newline
   else
     echo "ℹ️ skipping Homebrew uninstall (set REMOVE_HOMEBREW=1 to enable)."
+    newline
+  fi
+
+  # Claude Code (plugins → settings → rails-mcp → CLI, in dependency order)
+  if [[ "${KEEP_CLAUDE:-0}" == "1" ]]; then
+    echo "ℹ️ skipping Claude Code uninstall (KEEP_CLAUDE=1 set)."
+    newline
+  else
+    remove_claude_plugins
+    newline
+
+    remove_legacy_mcp_config
+    newline
+
+    remove_rails_mcp
+    newline
+
+    uninstall_claude_code
     newline
   fi
 
