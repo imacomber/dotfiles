@@ -1,0 +1,53 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"🔔 Claude Code\" -message \"Claude needs your input\""
+          },
+          {
+            "type": "command",
+            "command": "curl -s -X POST https://slack.com/api/chat.postMessage -H \"Authorization: Bearer $SLACK_BOT_TOKEN\" -H \"Content-Type: application/json\" -d \"{\\\"channel\\\": \\\"$SLACK_USER_ID\\\", \\\"text\\\": \\\"🔔 Claude Code needs your input\\\"}\" > /dev/null",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"✅ Claude Code\" -message \"The task has been completed\""
+          },
+          {
+            "type": "command",
+            "command": "curl -s -X POST https://slack.com/api/chat.postMessage -H \"Authorization: Bearer $SLACK_BOT_TOKEN\" -H \"Content-Type: application/json\" -d \"{\\\"channel\\\": \\\"$SLACK_USER_ID\\\", \\\"text\\\": \\\"✅ Claude Code task completed\\\"}\" > /dev/null",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "ruby-lsp@claude-plugins-official": true,
+    "superpowers-ruby@superpowers-ruby": true,
+    "slack@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "superpowers-ruby": {
+      "source": {
+        "source": "github",
+        "repo": "lucianghinda/superpowers-ruby"
+      }
+    }
+  }
+}
