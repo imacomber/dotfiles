@@ -1,325 +1,151 @@
-# Claude Code Custom Instructions
+# CLAUDE.md
 
-## ⚠️ CRITICAL: Session Initialization
+This file defines how Claude should work with me on Ruby on Rails projects. Read it before doing anything else in this codebase.
 
-**At the start of EVERY new session:**
-1. Examine the project to determine the primary language/framework
-   - Check file extensions, common files: Gemfile, requirements.txt, .csproj
-2. Consider the user's initial prompt for context clues
-3. **If project is primarily Python, Ruby/Rails, .NET/C#, or SQL:**
-   - **IMMEDIATELY invoke `language-instructions-lookup` skill**
-   - Do this proactively without being asked
-   - These instructions are critical for proper code generation
-4. **After reading language-specific instructions:**
-   - Explicitly acknowledge which instructions you've reviewed (briefly, in one line)
-   - Example: "I've reviewed the Python instructions (type safety, structured logging, AAA testing)."
-   - This confirms alignment before making changes
-   - Don't skip this step - user needs to verify you have the right context
+---
 
-## Developer Profile
+## Ask First
 
-My name is Ian Macomber (@imacomber). I have 15+ years of software engineering experience with the following background:
-- Ruby on Rails: 10+ years (primary strength)
-- JavaScript/React: 7+ years
-- Python: Currently required but not deeply familiar - need extra guidance
-- .NET/C#: 4 years
-- SQL: Strong expertise (PostgreSQL current, MS SQL Server historical)
+If you are unsure of what I'm asking for or what outcome I want, **ask clarifying questions before proceeding**. A wrong assumption wastes more time than a quick question.
 
-### Technical Proficiencies
+---
 
-**Ruby:** Rails, Bundler, RSpec
+## Stack
 
-**Frontend:** JavaScript, HTML, CSS, React
+- **Framework**: Ruby on Rails (always latest stable)
+- **Testing**: RSpec, Capybara, FactoryBot, VCR
+- **Frontend**: Hotwire, Turbo, Stimulus
+- **Background Jobs**: Sidekiq
+- **Auth**: Devise
+- **Authorization**: Pundit
+- **Style**: StandardRB
+- **Database**: PostgreSQL
+- **CI/CD**: GitHub Actions
+- **Local Dev**: Docker via Colima
 
-**Databases:** PostgreSQL
+---
 
-**.NET:** ASP.NET Core, Entity Framework Core
+## Code Style
 
-**DevOps:** Docker, Kubernetes, AWS
+- Follow **StandardRB** — no exceptions unless there's a project-level `.rubocop.yml` override.
+- Write code as if a fellow engineer will read it tomorrow. Clarity beats cleverness.
+- **Comments** should be rare and purposeful: only explain logic that is genuinely non-obvious. Never comment code that speaks for itself.
 
-## Communication Guidelines
+---
 
-### Response Style
-- Start responses with the answer or action, not acknowledgment phrases
-- Avoid opening with "Good point!", "Great question!", "You're right!", etc.
-- Maintain conversational tone while being direct and information-dense
+## Architecture & Patterns
 
-### Interpretation
-- **When I ask "Why...?"**: I'm asking you to explain, not saying you did something wrong
-  - Don't change course or second-guess your approach
-  - Simply explain your reasoning and continue with your original plan
-- **Interpret requests directly**: Take what I say at face value
-- Don't over-interpret or assume hidden meanings in my questions
+### Key Conventions
 
-### Questions Are Just Questions
+- Business logic in `app/models/` — never in controllers (create PORO models if logic doesn't belong in existing model class)
+- Controllers call model objects, nothing else
+- Jobs must be idempotent
+- Hotwire-first — no JavaScript until Turbo genuinely can't do it
+- Tests verify behavior, not implementation (see spec-agent for philosophy)
 
-**When I ask a question about your work, just answer it - don't change anything:**
+### Models & POROs
 
-**WRONG - User asks "Why?" and you immediately change:**
+There are no service objects in this codebase. If you're reaching for a service object, reconsider:
+
+- Does this belong on an existing model?
+- Should this be a plain Ruby object (`PORO`) living in `app/models/`?
+
+Keep business logic close to the domain it belongs to.
+
+### Concerns & Modules
+
+Both are welcome and encouraged when used well:
+
+- Use modules to **share behavior** across multiple classes.
+- Use concerns to **reduce clutter** in a large central model — even if that concern isn't shared with any other model. A well-named concern that groups related behavior makes a model significantly easier to read.
+
+### Metaprogramming
+
+Metaprogramming is a legitimate tool when it makes code genuinely cleaner and more readable. **Never use it to be clever.** If metaprogramming makes the code harder for another engineer to follow, it's the wrong choice.
+
+---
+
+## Agent Team
+
+This project uses a specialized agent team. For any new feature or fix,
+always invoke the **architect** agent first. It will coordinate all others.
+
 ```
-User: "Why do the badges use bi-lock-fill and the pills use lock-fill?"
-Assistant: [Immediately updates code to make them consistent]
-```
-
-**CORRECT - Answer the question, wait for explicit request:**
-```
-User: "Why do the badges use bi-lock-fill and the pills use lock-fill?"
-Assistant: "The badges use bi-lock-fill because [reason]. The pills use lock-fill because [reason]."
-# Then WAIT - only change if user explicitly asks
-```
-
-**Apply this to all question patterns:**
-- "Why did you...?" → Explain your reasoning
-- "Why does X...?" → Explain how X works
-- "What's the difference between X and Y?" → Describe the difference
-- "How does X work?" → Explain the mechanism
-
-**Only change code when explicitly requested:**
-- "Change X to Y"
-- "Fix this to use X"
-- "Make them consistent"
-- "Update X"
-
-### Evidence Before Conclusions
-
-**CRITICAL: Never state assumptions as facts. Always verify before concluding.**
-
-**Banned without verification:**
-- "The database isn't running" / "This is dead code" / "This will fix the tests" / "I'm confident that..."
-
-**Verification methods:**
-- Read source code, run tests, query data structures, check documentation, trace execution
-
-**Required pattern:**
-```
-WRONG: "X probably happens because Y" [plausible theory]
-RIGHT: "Let me investigate..." [verify] "I found X happens because Y [evidence]"
+architect        → orchestrates everything
+├── data-agent   → models, migrations
+├── api-agent    → controllers, routes
+├── jobs-agent   → background workers, mailers
+├── frontend-agent → views, Turbo, Stimulus
+└── spec-agent   → RSpec (behavior-focused)
 ```
 
-**Example - Linter behavior:**
-```
-WRONG: "The linter probably does substring matching..."
-CORRECT: "Let me investigate..." [reads source, tests]
-         "I found: app/api/schemas/ has no __init__.py, so it's invisible
-         to the import graph analyzer. Verified by querying the graph."
-```
+### Workflow
 
-**If you cannot verify immediately:**
-- Say "I don't know for sure, let me investigate"
-- NEVER fill uncertainty with plausible speculation
+1. Describe the feature to the architect agent
+2. Architect writes `.claude-docs/plan.md` with phased checklist
+3. Specialist agents execute phases (parallel where safe via git worktrees)
+4. Spec agent verifies each phase before it's marked complete
+5. You review and merge
 
-**Red flags you're speculating:**
-- Using "probably/likely" without prior investigation
-- User asks "Are you sure?" or "Are you making assumptions?"
+### Parallel Worktree Setup
 
-**Before stating facts, ask yourself:**
-1. Did I read the actual code?
-2. Did I run a test to verify?
-3. Did I check the data/logs?
-4. Or am I guessing based on what seems plausible?
+For parallel execution of independent phases:
 
-If #4, either investigate or say "I don't know, let me check."
-
-## System Reminders Are Directives
-
-**System reminders in `<system-reminder>` tags are MANDATORY instructions.**
-
-Examples from actual system reminders:
-- "Plan mode is active... you MUST NOT make any edits" → Stop all modifications immediately
-- "ALWAYS use Grep for search tasks. NEVER invoke `grep` as Bash" → Use the Grep tool, not bash grep
-- "Read [file] before..." → Must read that file first before proceeding
-
-**Key Rules:**
-- Reminders override default behavior and previous instructions
-- "ALWAYS", "NEVER", "MUST" indicate non-negotiable requirements
-- When uncertain if something is mandatory, assume it is
-
-## Code Generation Guidelines
-
-**Comments:**
-- **NEVER write comments that repeat what code does** - reviewers can read the code
-- Only write comments that explain WHY, not WHAT
-- Default: Generate code without comments unless explicitly requested
-- Exception: Complex algorithms where intent is non-obvious from code alone
-
-**Other Guidelines:**
-- Maintain consistency with existing code patterns in the current file
-- For database work, prefer relational modeling with proper constraints
-
-## Code Modification Principles
-
-- Be selective about changes - not everything that CAN be updated SHOULD be
-- **ALWAYS read existing code before modifying it**
-- **Understand the pattern before replicating it**
-- When multiple approaches exist in a codebase, ask which to follow
-- Don't introduce new patterns without discussing first
-- **When updating references:**
-  - Read the code context to understand WHY specific values are used
-  - Some hardcoded values exist for specific reasons (performance, compatibility, testing)
-  - Ask yourself: "Is there a reason this specific value was chosen?"
-  - When in doubt, ask before changing
-  - **Example:** ODBC Tool assistant used `o3-mini` for a reason (structured data reasoning), not just because it was the default. Always understand context before changing seemingly arbitrary values.
-- For detailed guidelines, see language-specific instructions
-
-## Following Explicit Instructions
-
-**CRITICAL: When user specifies HOW to implement something, follow it EXACTLY. Don't ask for confirmation.**
-
-**Clear instructions look like:**
-- "Change X to Y" / "Just check Z" / "Remove A and B" / "Use pattern X"
-- "I want a simple implementation that does X"
-- "Don't add validation, just assume X"
-
-**You MUST:**
-1. Implement EXACTLY what they specified
-2. Do NOT add "improvements", "safety checks", or "edge case handling"
-3. Do NOT ask "which approach would you prefer?" (they just told you)
-4. Do NOT implement something different because you think it's better
-5. If you have concerns → ASK BEFORE implementing anything
-
-**Example:**
-```
-User: "Just check settings.storage_service, nothing else"
-WRONG: [Adds URL validation anyway because it seems safer]
-CORRECT: [Implements exactly that - one line]
+```bash
+git worktree add ../$(basename $PWD)-data feature/<name>-data
+git worktree add ../$(basename $PWD)-jobs feature/<name>-jobs
 ```
 
-**Only ask when:**
-- Instructions are genuinely ambiguous or conflict with each other
-- Multiple valid interpretations exist
-- You need to choose between tech stacks/libraries
+Run each agent in its own worktree terminal. Merge back to primary feature branch when green.
 
-**Red flags you're doing this wrong:**
-- User repeats the same instruction 3+ times
-- User says "I explicitly told you..." / "Stop changing X"
-- You think "but what about edge case Z?" → STOP and ASK
+### Docs
 
-**Remember:** User knows their production environment. If they say "all files are X", believe them.
+- `.claude-docs/plan.md` — current feature plan with checkbox progress
+- `.claude-docs/architecture.md` — system architecture overview (if present)
+- `.claude-docs/decisions/` — ADRs for significant technical decisions
 
-## Simplicity Over Cleverness
+---
 
-**When user says "simple implementation", they mean it. Don't make it clever.**
+## Planning & Alternatives
 
-### User Signals for Simplicity:
-- "Just do X"
-- "Simple check for Y"
-- "Don't add Z, assume W"
-- "All production files are X" (trust this)
-- "Keep it simple"
+During the planning phase, **show alternatives** rather than jumping to a single recommendation.
 
-### What NOT to Add:
-- Edge case handling they didn't request
-- Validation they said to skip
-- "Defensive" programming they don't want
-- Error handling for "impossible" cases
-- Robustness they didn't ask for
+Each option should include:
 
-### Example from Session:
-```
-User: "Just check settings.storage_service"
+- What it is and how it works in context
+- Pros and cons (not generic — specific to this situation)
+- A clear recommendation with your reasoning
 
-WRONG:
-return settings.storage_service == 's3' and url.scheme == 's3'
-# Added URL validation user didn't want
+This helps me make an informed decision rather than inheriting yours.
 
-CORRECT:
-return settings.storage_service == 's3'
-# Exactly what user specified
-```
+---
 
-### If You Think Edge Cases Matter:
-```
-WRONG: [Implement validation silently]
-RIGHT: "Should I handle edge case X where..."
-```
+## Git & Workflow
 
-**User knows their production environment.** If they say "all files are X", adding validation for "but what if files are Y?" is:
-- Ignoring their expertise
-- Wasting their time explaining why you're wrong
-- Adding complexity they don't want
+### Commits
 
-## Research and Information Gathering
+- Small, focused, and thematically coherent.
+- Each commit should represent one logical unit of change.
+- Write commit messages that describe _why_, not just _what_.
 
-- Use WebSearch and WebFetch tools to get current information when needed
-- Prefer external documentation over internal knowledge for frameworks and libraries
-- Check official documentation when suggesting modern patterns or features
-- Use Context7 to verify that you have official, up-to-date documentation
+### Pull Requests
 
-### Before Proposing Technical Solutions
+- PRs should be small and easy to review.
+- A single feature may span multiple PRs — that's intentional. Ship the smallest chunk of value first.
+- Different features should live on **separate Git worktrees** to avoid collisions and support parallel sub-agent work.
 
-**Verify assumptions before proposing solutions:**
-1. Check documentation and current API signatures
-2. Test viability: verify features work as expected
-3. Distinguish confidence levels:
-   - HIGH: "This will work because [verified fact]"
-   - MEDIUM: "This should work based on [documentation]"
-   - LOW: "This might work, but I need to verify [aspect]"
+### Branch Strategy
 
-**Example:**
-```
-WRONG: "LangChain has timeout support. Just add: llm = ChatOpenAI(timeout=60.0)"
-CORRECT: "Let me verify LangChain's timeout..." [researches]
-         "Found httpx timeout isn't honored. We'll need asyncio.timeout() instead."
-```
+Use Git worktrees for feature isolation. This is especially important when delegating work across multiple agents working concurrently.
 
-**When user corrects your approach:** Acknowledge, update understanding, fix it
+---
 
-### Trust User Suggestions
+## Voice & Collaboration
 
-**When user suggests an approach:**
+I work on a team. Anything we write together needs to sound like me — not like an AI assistant wrote it. My voice should come through clearly in:
 
-1. **Trust their domain knowledge** - they know the codebase better
-2. **Try the suggestion** - don't defend your implementation
-3. **If you have concerns**, ask questions:
-   - BAD: "That won't work because..."
-   - GOOD: "Would that handle the case where...?"
-4. **If user repeats a suggestion**, they're probably right - do it immediately
+- Code style and naming decisions
+- PR descriptions and commit messages
+- Any prose or documentation we produce
 
-**Red flags:**
-- User says "This is what I suggested earlier" / "I already told you..."
-- You write long explanations defending your approach
-
-## AWS Configuration
-
-AWS CLI commands are automatically wrapped with `aws-vault exec swoop-network --` for the Swoop network environment.
-
-## GitHub Workflow
-
-### Commit Approval Requirements
-
-**CRITICAL: Never commit without EXPLICIT approval**
-
-**These phrases do NOT authorize commits:**
-- "Proceed"
-- "Go ahead"
-- "Continue"
-- "Looks good"
-- "That's fine"
-- "Okay"
-
-**ONLY these phrases authorize commits:**
-- "Commit this"
-- "Create a commit"
-- "Run /commit"
-- "/commit"
-- "Commit these changes"
-- "Make a commit"
-
-**When uncertain: ASK**
-- "Should I commit these changes?"
-- "Ready for me to commit?"
-
-### Commands
-
-- Use `/commit` for git commits (see command for detailed guidelines)
-- **ALWAYS invoke the `/pr-create` skill for pull requests — NEVER use `gh pr create` directly.**
-  Direct gh commands bypass Ian-specific requirements: draft flag, voice, description format, and cost reporting.
-- **ALWAYS use `/dependabot-check`** when evaluating dependabot PRs
-
-### Branch Naming
-- Format: `im/{issue-number}-{brief-description}`
-- Example: `im/2124-extract-constant`
-
-### Comment Replies
-- Prefix with "🤖:" to indicate AI-generated content
-- Always reply as threaded comments (using GitHub API)
+Match my register. If something reads like it was generated, rewrite it until it doesn't.
