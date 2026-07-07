@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH:$HOME/docker-credential-osxkeychain-v0.9.5.darwin-arm64
+export PATH=$HOME:$HOME/bin:$HOME/.local/bin:$HOME/go/bin:/usr/local/bin:$PATH:$HOME/docker-credential-osxkeychain-v0.9.5.darwin-arm64
 
 export ASDF_DATA_DIR=/Users/ianmacomber/.asdf
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
@@ -19,6 +19,8 @@ alias tmux="TERM=screen-256color-bce tmux"
 
 alias dcu='docker-compose up && docker-compose logs -f'
 alias dcd='docker-compose down'
+alias tu='/opt/homebrew/bin/tilt up -- --source-astrology'
+alias td='/opt/homebrew/bin/tilt down'
 
 alias gd='git diff'
 alias gp='git fetch origin -p && git rebase origin/$(git rev-parse --abbrev-ref HEAD)'

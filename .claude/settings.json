@@ -35,18 +35,54 @@
   },
   "enabledPlugins": {
     "ruby-lsp@claude-plugins-official": true,
-    "superpowers-ruby@superpowers-ruby": true,
+    "superpowers-ruby@superpowers-ruby": false,
     "slack@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "playwright@claude-plugins-official": true,
-    "github@claude-plugins-official": true
+    "github@claude-plugins-official": true,
+    "sentry@claude-plugins-official": true,
+    "langsmith-skills@swoop-plugins": true,
+    "aws-core@agent-toolkit-for-aws": true,
+    "issue-triage-agent@swoop-plugins": true,
+    "chrome-devtools-mcp@chrome-devtools-plugins": true,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "superpowers-ruby": {
       "source": {
         "source": "github",
         "repo": "lucianghinda/superpowers-ruby"
+      }
+    },
+    "swoop-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "Shopximity/claude-code-plugin-marketplace"
+      }
+    },
+    "swoop-rails-issue-resolver-marketplace": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/ianmacomber/swoop-rails-issue-resolver"
+      }
+    },
+    "agent-toolkit-for-aws": {
+      "source": {
+        "source": "github",
+        "repo": "aws/agent-toolkit-for-aws"
+      }
+    },
+    "chrome-devtools-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
       }
     }
   }

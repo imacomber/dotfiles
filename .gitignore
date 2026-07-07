@@ -1,2 +1,4 @@
 ~/.config/nvim/lazy-lock.json
 .tmux/plugins/tpm
+
+**/.claude/settings.local.json
