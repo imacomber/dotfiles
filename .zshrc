@@ -19,7 +19,9 @@ alias tmux="TERM=screen-256color-bce tmux"
 
 alias dcu='docker-compose up && docker-compose logs -f'
 alias dcd='docker-compose down'
-alias tu='/opt/homebrew/bin/tilt up -- --source-astrology'
+alias tlt='/opt/homebrew/bin/tilt'
+alias tu='/opt/homebrew/bin/tilt up'
+alias tua='/opt/homebrew/bin/tilt up -- --source-astrology'
 alias td='/opt/homebrew/bin/tilt down'
 
 alias gd='git diff'
