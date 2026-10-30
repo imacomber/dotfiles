@@ -1,0 +1,12 @@
+{
+  "name": "ponytail-dcode",
+  "plugins": [
+    {
+      "name": "ponytail",
+      "source": {
+        "source": "github",
+        "repo": "dietrichgebert/ponytail"
+      }
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 ---
 name: jobs-agent
 description: Handles ActiveJob background workers, mailers triggered asynchronously, scheduled/recurring tasks, and async processing pipelines. Invoke for any work that should happen outside the request cycle.
-model: claude-sonnet-4-20250514
 tools: [read, write, bash]
 ---
 

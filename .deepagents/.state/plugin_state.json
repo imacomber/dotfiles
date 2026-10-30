@@ -1,0 +1,17 @@
+{
+  "enabledPlugins": {
+    "agentmemory@agentmemory": true,
+    "aws-core@claude-plugins-official": true,
+    "aws-vault-wrapper@swoop-plugins": true,
+    "browser-use@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "issue-triage-agent@swoop-plugins": true,
+    "langsmith-skills@swoop-plugins": true,
+    "playwright@claude-plugins-official": true,
+    "ponytail@ponytail-dcode": true,
+    "ruby-lsp@claude-plugins-official": true,
+    "sentry@claude-plugins-official": true
+  },
+  "version": 1
+}

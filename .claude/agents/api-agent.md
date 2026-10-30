@@ -1,7 +1,6 @@
 ---
 name: api-agent
 description: Handles Rails controllers, routes, strong parameters, serializers, and API responses. Always invoke after data-agent has completed the model layer for the feature.
-model: claude-sonnet-4-20250514
 tools: [read, write, bash]
 ---
 

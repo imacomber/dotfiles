@@ -85,5 +85,10 @@
         "repo": "DietrichGebert/ponytail"
       }
     }
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
   }
 }

@@ -1,0 +1,71 @@
+{
+  "plugins": {
+    "agentmemory@agentmemory": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/agentmemory-94fc11d980ea813257a38b4b8b64e175/agentmemory-94fc11d980ea813257a38b4b8b64e175/0-9-29-ada87d4c0acb429c346b48b561a7ac32",
+        "version": "0.9.29"
+      }
+    ],
+    "aws-core@claude-plugins-official": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/claude-plugins-official-f6cb1f50b78078d34bbc053eda36e436/aws-core-3a76fca4729ad01edd24c5800f26f8b3/1-1-0-7fbd210ebec11f65a97190ef900795c4",
+        "version": "1.1.0"
+      }
+    ],
+    "aws-vault-wrapper@swoop-plugins": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/swoop-plugins-df0895ec0c7e21a5b1e4924b0d5d6788/aws-vault-wrapper-ec93ce1bf1b6057f0a130e1c0ba13afc/1-1-5-2306deab5abc025bcdea64017c121b95",
+        "version": "1.1.5"
+      }
+    ],
+    "browser-use@claude-plugins-official": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/claude-plugins-official-f6cb1f50b78078d34bbc053eda36e436/browser-use-035549a413ab32579a2a59f112c69ee6/unversioned-d01383c373ddae4ae891cc6b64fbc0e5"
+      }
+    ],
+    "context7@claude-plugins-official": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/claude-plugins-official-f6cb1f50b78078d34bbc053eda36e436/context7-0472116c93c00c7ca34dc790f805a3fd/unversioned-d01383c373ddae4ae891cc6b64fbc0e5"
+      }
+    ],
+    "github@claude-plugins-official": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/claude-plugins-official-f6cb1f50b78078d34bbc053eda36e436/github-c0b0109d9439de57fe3cf03abeccbc52/unversioned-d01383c373ddae4ae891cc6b64fbc0e5"
+      }
+    ],
+    "issue-triage-agent@swoop-plugins": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/swoop-plugins-df0895ec0c7e21a5b1e4924b0d5d6788/issue-triage-agent-cf9117cb19a6763f747e0e05eecb8b07/0-1-1-11ee23b8fc2fc619d6eab6277adb5a52",
+        "version": "0.1.1"
+      }
+    ],
+    "langsmith-skills@swoop-plugins": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/swoop-plugins-df0895ec0c7e21a5b1e4924b0d5d6788/langsmith-skills-96a752a091fbd683d831380b896ee187/0-1-0-6ad9613a455798d6d92e5f5f390ab4ba",
+        "version": "0.1.0"
+      }
+    ],
+    "playwright@claude-plugins-official": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/claude-plugins-official-f6cb1f50b78078d34bbc053eda36e436/playwright-7827e8eb2cb3b95f4d0ffac324b65208/unversioned-d01383c373ddae4ae891cc6b64fbc0e5"
+      }
+    ],
+    "ponytail@ponytail-dcode": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/ponytail-dcode-d9b924c1d4e90fc64270baaf18a9db48/ponytail-99e1ea0dc21155f199005f8c0bebdfaa/unversioned-d01383c373ddae4ae891cc6b64fbc0e5"
+      }
+    ],
+    "ruby-lsp@claude-plugins-official": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/claude-plugins-official-f6cb1f50b78078d34bbc053eda36e436/ruby-lsp-36065edb4f71f9277b87f7b021d2583a/unversioned-d01383c373ddae4ae891cc6b64fbc0e5"
+      }
+    ],
+    "sentry@claude-plugins-official": [
+      {
+        "installPath": "/Users/ianmacomber/.deepagents/plugins/cache/claude-plugins-official-f6cb1f50b78078d34bbc053eda36e436/sentry-0cf6855c1a3c323bfb9d788f7a55f0ce/1-4-0-74b860b3270666137a4d543c3e3d1e4e",
+        "version": "1.4.0"
+      }
+    ]
+  },
+  "version": 2
+}

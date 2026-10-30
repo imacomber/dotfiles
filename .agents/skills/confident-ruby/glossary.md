@@ -1,0 +1,49 @@
+# Glossary
+
+Chapter and section references follow the source; chapter links are in SKILL.md.
+
+- **Adapter** — a wrapper translating an existing collaborator to the interface its client needs (4.10).
+- **Assertion** — an executable statement of an assumption, especially useful at uncertain external boundaries (4.15).
+- **Benign value** — a known-good fallback whose ordinary behavior is acceptable in a nonessential missing-data case (4.19, 5.3).
+- **Black hole Null Object** — a null implementation returning itself from messages, permitting chains but risking silent propagation (4.18).
+- **Border** — a public API or subsystem entry point where outside inputs become trusted collaborators (4.1).
+- **Bouncer method** — a focused status/state check that raises an exception when it detects failure (6.3).
+- **Builder** — an object used to configure and potentially replace/decorate a parameter before the operation uses it (4.22).
+- **Callback** — caller-supplied behavior invoked when a defined event or outcome occurs (5.2, 5.6).
+- **Canary assertion** — a retained check that exposes changed assumptions about an external response (4.15).
+- **catch/throw** — paired constructs for intentional nonlocal control transfer, such as ending parsing once enough data exists (5.7).
+- **Checked method** — a method encapsulating a risky operation and its known exception policy (6.2).
+- **Code as narrative** — arranging operations so a method's purpose and sequence are straightforward to follow (2).
+- **Command** — an operation whose purpose is changing state or producing effects (5.2).
+- **Command-query separation** — distinguish operations that produce effects from operations that answer questions (5.2, 5.6).
+- **Conversion function** — a normalization operation such as Array() or the book's Point(), commonly safe to apply to an already-normalized value (4.6-4.8).
+- **Conversion protocol** — an agreed message by which an object supplies another representation, such as to_path or to_meters (4.2-4.5).
+- **Decorator** — a wrapper adding behavior while retaining the wrapped role; the source adds fuzzy rendering around points (4.21).
+- **Direct input** — a value immediately available to a method, such as an argument, constant, or instance variable (4.1).
+- **Double dispatch** — cooperation that selects behavior through two receivers; the source has a map ask a point to draw on it (4.21).
+- **Duck type** — a role characterized by the messages an object can meaningfully answer, independent of its class (3).
+- **Explicit conversion** — a deliberately requested representation such as to_s or to_i, without implying the original object behaves like the target (4.2).
+- **Guard Clause** — an early exit dealing completely with a special case before the normal body proceeds (4.16).
+- **Happy path** — the method's ordinary successful execution, separated from exceptional handling for readability (2, 6.1).
+- **Idempotent conversion** — normalization that remains stable when applied again to its result (4.6, 4.8).
+- **Implicit conversion** — a protocol such as to_str or to_int indicating a close relationship to a target representation (4.2).
+- **Indirect input** — a value obtained by sending messages to another available object, including environment or I/O results (4.1).
+- **Invariant** — a property that must continue to hold for an object, established and protected wherever state changes (4.12).
+- **MacGyver method** — a method whose expression is dominated by incidental available tools rather than the domain task (3).
+- **Message** — an operation requested of an object; choosing messages establishes the vocabulary of the work (3).
+- **Method magnet** — a newly explicit parameter/domain object attracting behavior formerly scattered among its clients (4.21).
+- **Null Object** — an implementation of a required role whose relevant behavior intentionally does nothing or provides neutral answers (4.18).
+- **Object neighborhood** — collaborating objects forming a subsystem whose entry points can establish trusted contracts (4.1).
+- **Parameter object** — a cohesive group of values made into an explicit domain object (4.21).
+- **Policy** — caller-supplied behavior deciding an edge case, instead of flags selecting hard-coded responses (4.23).
+- **Precondition** — a requirement for valid entry to an operation, enforced before harmful or undefined behavior (4.12).
+- **Query** — an operation whose purpose is returning information (5.2).
+- **Role** — a set of related responsibilities that more than one concrete class can fulfill (3).
+- **Sentinel value** — a distinguished return value identifying a special condition; it helps only when its receiver recognizes it (5.7).
+- **Special Case** — a meaningful alternate implementation of a domain role, such as GuestUser (4.17, 5.4).
+- **Status object** — an explicit outcome with predicates or callbacks and useful context such as an error (5.5-5.6).
+- **String typing** — using primitive values to encode behavior-bearing concepts, often producing repeated switches (4.9).
+- **Switch Statements Smell** — many conditionals selecting behavior from the same type/state attribute (3, 4.9).
+- **Timid code** — code whose main narrative is repeatedly interrupted by uncertainty about input, collaborators, or results (2).
+- **Total function, book usage** — a method avoiding nil and consistently returning a collection when collections are possible; distinct from mathematical totality (5.1).
+- **Transparent adapter** — an adapter forwarding the old interface while adding a new one to support incremental migration (4.11).

@@ -1,7 +1,6 @@
 ---
 name: data-agent
 description: Handles all ActiveRecord models, migrations, database schema changes, validations, associations, and scopes. Also creates PORO model objects in app/models/ if business logic does not seem appropriate in existing models. Invoke after receiving a data-layer phase from the architect.
-model: claude-sonnet-4-20250514
 tools: [read, write, bash]
 ---
 

@@ -1,0 +1,27 @@
+[agents]
+recent = "agent"
+
+[models]
+recent = "openai:gpt-6.1-sol"
+
+[startup]
+recent = "auto"
+
+[warnings]
+suppress = [
+    "cold-cache",
+]
+
+[effort.by_model]
+"openai:gpt-6-astra" = "medium"
+"openai:gpt-6-sol" = "medium"
+
+[[mcp.enabled_project_server_approvals]]
+project_root = "/Users/ianmacomber"
+name = "docs-langchain"
+fingerprint = "sha256:01f1104ddddffbbd59c8ccd858483fdd33841799a6db241c1e88a991e8e1e4a5"
+
+[[mcp.enabled_project_server_approvals]]
+project_root = "/Users/ianmacomber"
+name = "reference-langchain"
+fingerprint = "sha256:3db6d85ed2cb073a202c66b7b37aa2cca86337e1cd0f05c9fde3bb68d669fdd2"

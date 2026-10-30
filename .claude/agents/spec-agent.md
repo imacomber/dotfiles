@@ -1,7 +1,6 @@
 ---
 name: spec-agent
 description: Writes and runs RSpec tests for completed implementation phases. Invoke after each specialist agent finishes their phase. Also performs a final behavior-coverage audit once all phases are complete.
-model: claude-sonnet-4-20250514
 tools: [read, write, bash]
 ---
 

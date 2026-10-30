@@ -1,7 +1,6 @@
 ---
 name: frontend-agent
 description: Handles all Rails views, ERB partials, Turbo Frames, Turbo Streams, and Stimulus controllers. Invoke after api-agent has completed the controller and routes for the feature.
-model: claude-sonnet-4-20250514
 tools: [read, write, bash]
 ---
 

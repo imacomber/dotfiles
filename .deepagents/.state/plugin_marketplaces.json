@@ -1,0 +1,25 @@
+{
+  "marketplaces": {
+    "agentmemory": {
+      "install_location": "/Users/ianmacomber/.deepagents/plugins/marketplaces/repository-a05213c8ae940a7e910f117da97dd3d0719a0428857db66afc832eb9c84ef247",
+      "source": "https://github.com/rohitg00/agentmemory.git",
+      "source_type": "git"
+    },
+    "claude-plugins-official": {
+      "install_location": "/Users/ianmacomber/.deepagents/plugins/marketplaces/repository-47de00f3d73a1aaa082f81c40874c4ca9aeed37ef2927a5a9483cb74ad8c2ce7",
+      "source": "https://github.com/anthropics/claude-plugins-official.git",
+      "source_type": "git"
+    },
+    "ponytail-dcode": {
+      "install_location": "/Users/ianmacomber/.deepagents/local-marketplaces/ponytail-dcode/marketplace.json",
+      "source": "/Users/ianmacomber/.deepagents/local-marketplaces/ponytail-dcode/marketplace.json",
+      "source_type": "file"
+    },
+    "swoop-plugins": {
+      "install_location": "/Users/ianmacomber/.deepagents/plugins/marketplaces/repository-f9243902d5aa08be0ba6d329ee01e43909a4c6cf0f76c5b57b79cdd4b09e902e",
+      "source": "Shopximity/claude-code-plugin-marketplace",
+      "source_type": "github"
+    }
+  },
+  "version": 1
+}
