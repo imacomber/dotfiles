@@ -4,7 +4,7 @@ export PATH=$HOME:$HOME/bin:$HOME/.local/bin:$HOME/go/bin:/usr/local/bin:$PATH:$
 export ASDF_DATA_DIR=/Users/ianmacomber/.asdf
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 export TERM="screen-256color"
-export EDITOR='vim'
+export EDITOR='nvim'
 
 source <(fzf --zsh)
 # bindkey '^R' history-incremental-search-backward

@@ -1,8 +1,79 @@
 return {
   {
+    "projekt0n/github-nvim-theme",
+    name = "github-theme",
+    lazy = true,
+    opts = {
+      palettes = {
+        github_dark_dimmed = {
+          red = { base = "#af5f5c", bright = "#b67572" },
+          green = { base = "#4d8454", bright = "#599460" },
+          yellow = { base = "#927334", bright = "#9e8344" },
+          blue = { base = "#4b7ab5", bright = "#5a8bbc" },
+          magenta = { base = "#856bb2", bright = "#a090b9" },
+          cyan = { base = "#39949d", bright = "#4c9da6" },
+          white = { base = "#707b88", bright = "#96a0ac" },
+          canvas = { default = "#212830", inset = "#151b22" },
+          fg = { default = "#929da9", muted = "#7c8691", subtle = "#7c8691" },
+          border = { default = "#3d444d", muted = "#30363f" },
+        },
+      },
+      specs = {
+        github_dark_dimmed = {
+          bg0 = "#262c36",
+          bg2 = "#2a303c",
+          bg3 = "#2a303c",
+          syntax = {
+            bracket = "#929da9",
+            builtin0 = "#5a8bbb",
+            builtin1 = "#af5f5c",
+            builtin2 = "#5a8bbb",
+            comment = "#606b76",
+            conditional = "#af5f5c",
+            const = "#5a8bbb",
+            dep = "#b67572",
+            field = "#5a8bbb",
+            func = "#a08fb9",
+            ident = "#929da9",
+            keyword = "#af5f5c",
+            number = "#5a8bbb",
+            operator = "#5a8bbb",
+            param = "#929da9",
+            preproc = "#af5f5c",
+            regex = "#749bbb",
+            statement = "#af5f5c",
+            string = "#749bbb",
+            tag = "#6fa274",
+            type = "#b07b4e",
+            variable = "#929da9",
+          },
+          git = {
+            add = "#4d8454",
+            changed = "#927334",
+            conflict = "#965c37",
+            ignored = "#545e69",
+            removed = "#a64d4b",
+          },
+          diag = {
+            error = "#a64d4b",
+            hint = "#606b76",
+            info = "#4a7ab5",
+            warn = "#927334",
+          },
+          diff = {
+            add = "#283b34",
+            delete = "#392c33",
+            change = "#253345",
+            text = "#32543e",
+          },
+        },
+      },
+    },
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-macchiato",
-    }
-  }
+      colorscheme = "github_dark_dimmed",
+    },
+  },
 }
