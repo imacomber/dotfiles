@@ -3,3 +3,4 @@
 -- Add any additional options here
 
 vim.opt.guicursor = "a:ver25-blinkwait700-blinkoff400-blinkon250"
+vim.g.trouble_lualine = false
