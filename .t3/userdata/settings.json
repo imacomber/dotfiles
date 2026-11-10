@@ -1,0 +1,24 @@
+{
+  "defaultAutoPull": true,
+  "defaultModelSelection": {
+    "instanceId": "codex",
+    "model": "gpt-6.1-sol",
+    "options": [
+      {
+        "id": "reasoningEffort",
+        "value": "medium"
+      },
+      {
+        "id": "serviceTier",
+        "value": "default"
+      }
+    ]
+  },
+  "defaultRuntimeMode": "auto",
+  "projectSettingsFolded": true,
+  "idleCompaction": "onReturn",
+  "sourceControlWritingStyle": {
+    "mode": "conventional_commits"
+  },
+  "pullRequestMergeMethod": "squash"
+}

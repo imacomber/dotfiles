@@ -1,0 +1,24 @@
+font-family = "FiraCode Nerd Font Mono Light"
+font-size = 24
+theme = GitHub Dark Dimmed
+working-directory = ~/dev/spx
+background = #212830
+foreground = #929da9
+cursor-color = #929da9
+cursor-text = #212830
+selection-background = #253345
+selection-foreground = #929da9
+palette = 1=#af5f5c
+palette = 2=#4d8454
+palette = 3=#927334
+palette = 4=#4b7ab5
+palette = 5=#856bb2
+palette = 6=#39949d
+palette = 7=#707b88
+palette = 9=#b67572
+palette = 10=#599460
+palette = 11=#9e8344
+palette = 12=#5a8bbc
+palette = 13=#a090b9
+palette = 14=#4c9da6
+palette = 15=#96a0ac
