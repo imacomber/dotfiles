@@ -56,6 +56,14 @@ function M.switch(path)
   vim.notify("Worktree: " .. vim.fn.fnamemodify(path, ":~"))
 end
 
+function M.prune()
+  local ok, out = git({ "worktree", "prune", "--verbose" })
+  if not ok then
+    return vim.notify(table.concat(out, "\n"), vim.log.levels.ERROR)
+  end
+  vim.notify(#out > 0 and table.concat(out, "\n") or "No stale worktrees to prune")
+end
+
 function M.pick()
   vim.ui.select(M.list(), {
     prompt = "Worktree",

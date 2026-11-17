@@ -5,3 +5,4 @@
 local worktree = require("config.worktree")
 vim.keymap.set("n", "<leader>gw", worktree.pick, { desc = "Switch Worktree" })
 vim.keymap.set("n", "<leader>gW", worktree.add, { desc = "New Worktree" })
+vim.keymap.set("n", "<leader>gp", worktree.prune, { desc = "Prune Worktrees" })
