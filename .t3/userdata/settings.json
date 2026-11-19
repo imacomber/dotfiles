@@ -1,4 +1,8 @@
 {
+  "storageCleanup": {
+    "worktreeOnMerge": true,
+    "worktreeOnDelete": true
+  },
   "defaultAutoPull": true,
   "defaultModelSelection": {
     "instanceId": "codex",

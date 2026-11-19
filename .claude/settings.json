@@ -35,7 +35,6 @@
   },
   "enabledPlugins": {
     "ruby-lsp@claude-plugins-official": true,
-    "superpowers-ruby@superpowers-ruby": false,
     "slack@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
@@ -45,16 +44,9 @@
     "langsmith-skills@swoop-plugins": true,
     "aws-core@agent-toolkit-for-aws": true,
     "issue-triage-agent@swoop-plugins": true,
-    "chrome-devtools-mcp@chrome-devtools-plugins": true,
-    "ponytail@ponytail": true
+    "chrome-devtools-mcp@chrome-devtools-plugins": true
   },
   "extraKnownMarketplaces": {
-    "superpowers-ruby": {
-      "source": {
-        "source": "github",
-        "repo": "lucianghinda/superpowers-ruby"
-      }
-    },
     "swoop-plugins": {
       "source": {
         "source": "github",
@@ -77,12 +69,6 @@
       "source": {
         "source": "github",
         "repo": "ChromeDevTools/chrome-devtools-mcp"
-      }
-    },
-    "ponytail": {
-      "source": {
-        "source": "github",
-        "repo": "DietrichGebert/ponytail"
       }
     }
   },

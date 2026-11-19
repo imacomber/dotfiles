@@ -1,0 +1,115 @@
+{
+  "version": 2,
+  "plugins": {
+    "ruby-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/claude-plugins-official/ruby-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-12T20:49:51.842Z",
+        "lastUpdated": "2026-03-12T20:49:51.842Z",
+        "gitCommitSha": "b36fd4b753018b0b340803579399992a32e43502"
+      }
+    ],
+    "slack@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/claude-plugins-official/slack/1.4.1",
+        "version": "1.4.1",
+        "installedAt": "2026-04-08T19:29:21.201Z",
+        "lastUpdated": "2026-10-13T14:35:44.711Z",
+        "gitCommitSha": "b073ebc2fc500b52e781f5fd17ebb9ad462363dc"
+      }
+    ],
+    "context7@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/claude-plugins-official/context7/df9699a55c56",
+        "version": "df9699a55c56",
+        "installedAt": "2026-04-09T00:15:04.426Z",
+        "lastUpdated": "2026-11-19T16:48:57.550Z",
+        "gitCommitSha": "df9699a55c56707e9948a32951ea356638ea8519"
+      }
+    ],
+    "code-review@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/claude-plugins-official/code-review/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-04-09T00:15:25.386Z",
+        "lastUpdated": "2026-10-28T14:29:45.818Z",
+        "gitCommitSha": "f8c5e7a1dcb71b10cb74586224b5401f3de5db28"
+      }
+    ],
+    "playwright@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/claude-plugins-official/playwright/df9699a55c56",
+        "version": "df9699a55c56",
+        "installedAt": "2026-04-09T00:16:45.048Z",
+        "lastUpdated": "2026-11-19T16:48:57.549Z",
+        "gitCommitSha": "df9699a55c56707e9948a32951ea356638ea8519"
+      }
+    ],
+    "github@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/claude-plugins-official/github/df9699a55c56",
+        "version": "df9699a55c56",
+        "installedAt": "2026-04-09T14:32:52.892Z",
+        "lastUpdated": "2026-11-19T16:48:57.551Z",
+        "gitCommitSha": "df9699a55c56707e9948a32951ea356638ea8519"
+      }
+    ],
+    "sentry@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/claude-plugins-official/sentry/1.4.0",
+        "version": "1.4.0",
+        "installedAt": "2026-05-06T16:19:27.750Z",
+        "lastUpdated": "2026-09-03T14:53:51.347Z",
+        "gitCommitSha": "fb398fdfff2055abc3d55917f6b6f0c0d5ad5e3b"
+      }
+    ],
+    "langsmith-skills@swoop-plugins": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/swoop-plugins/langsmith-skills/0.1.0",
+        "version": "0.1.0",
+        "installedAt": "2026-05-06T22:53:56.234Z",
+        "lastUpdated": "2026-05-06T22:53:56.234Z",
+        "gitCommitSha": "68c8bb6b4b7cb5b20870b7b6afb340f6c958b0e6"
+      }
+    ],
+    "aws-core@agent-toolkit-for-aws": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/agent-toolkit-for-aws/aws-core/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-05-12T20:38:40.300Z",
+        "lastUpdated": "2026-05-12T20:38:40.300Z",
+        "gitCommitSha": "8bc62f2f1f625cbc1f8d8aaf3172abd8b567d318"
+      }
+    ],
+    "issue-triage-agent@swoop-plugins": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/swoop-plugins/issue-triage-agent/0.1.1",
+        "version": "0.1.1",
+        "installedAt": "2026-05-18T21:36:31.485Z",
+        "lastUpdated": "2026-05-26T20:15:59.834Z",
+        "gitCommitSha": "5384d1d21de4839adaded8c9f60cc7d9f095bacc"
+      }
+    ],
+    "chrome-devtools-mcp@chrome-devtools-plugins": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ianmacomber/.claude/plugins/cache/chrome-devtools-plugins/chrome-devtools-mcp/1.1.1",
+        "version": "1.1.1",
+        "installedAt": "2026-05-30T19:03:08.616Z",
+        "lastUpdated": "2026-05-30T19:03:08.616Z",
+        "gitCommitSha": "2e039c09e1a273581d9b51081a0feb8a57791947"
+      }
+    ]
+  }
+}

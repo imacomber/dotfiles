@@ -1,0 +1,267 @@
+notify = [ "/Users/ianmacomber/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended" ]
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "/Users/ianmacomber/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+source_type = "local"
+source = "/Users/ianmacomber/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[marketplaces.agent-toolkit-for-aws]
+last_updated = "2026-09-29T20:51:37Z"
+last_revision = "613dc216a1cf0836b81a28d7f3a81f2b72034394"
+source_type = "git"
+source = "https://github.com/aws/agent-toolkit-for-aws.git"
+
+[marketplaces.chrome-devtools-plugins]
+last_updated = "2026-09-29T20:51:38Z"
+last_revision = "25d5999c13b60ba43995c544f8ef8d0b69cc01a1"
+source_type = "git"
+source = "https://github.com/ChromeDevTools/chrome-devtools-mcp.git"
+
+[marketplaces.claude-plugins-official]
+last_updated = "2026-09-29T20:51:40Z"
+last_revision = "fbe07fb6ce7d51d8e86ca6efdf050059894cdb80"
+source_type = "git"
+source = "https://github.com/anthropics/claude-plugins-official.git"
+
+[marketplaces.claude-cowork]
+source_type = "local"
+source = "/Users/ianmacomber/.codex/plugins/cache/claude-cowork"
+
+[marketplaces.heimdall]
+source_type = "git"
+source = "git@github.com:Shopximity/heimdall.git"
+
+[marketplaces.swoop-plugins]
+source_type = "git"
+source = "git@github.com:Shopximity/claude-code-plugin-marketplace.git"
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."outlook-calendar@openai-curated"]
+enabled = true
+
+[plugins."teams@openai-curated"]
+enabled = true
+
+[plugins."aws-core@agent-toolkit-for-aws"]
+enabled = true
+
+[plugins."chrome-devtools-mcp@chrome-devtools-plugins"]
+enabled = true
+
+[plugins."code-review@claude-plugins-official"]
+enabled = true
+
+[plugins."context7@claude-plugins-official"]
+enabled = true
+
+[plugins."playwright@claude-plugins-official"]
+enabled = true
+
+[plugins."ruby-lsp@claude-plugins-official"]
+enabled = true
+
+[plugins."sentry@claude-plugins-official"]
+enabled = true
+
+[plugins."slack@claude-plugins-official"]
+enabled = true
+
+[plugins."anthropic-skills@claude-cowork"]
+enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."code-review@openai-bundled"]
+enabled = true
+
+[plugins."github@openai-api-curated"]
+enabled = true
+
+[plugins."heimdall@heimdall"]
+enabled = true
+
+[plugins."miro@claude-plugins-official"]
+enabled = true
+
+[features]
+hooks = true
+js_repl = false
+
+[mcp_servers.node_repl]
+command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120.0
+
+[mcp_servers.node_repl.env]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab,mcpapps"
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.1002.52244"
+BROWSER_USE_TINYSKY_ENABLED = "1"
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"
+CODEX_HOME = "/Users/ianmacomber/.codex"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/ianmacomber/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/ianmacomber/.codex/plugins/cache/openai-bundled/browser/26.1002.52244/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_SERVICE_PATH = "/Users/ianmacomber/.codex/computer-use/Codex Computer Use.app"
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest"]
+
+[mcp_servers.postgres]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-postgres", "postgresql://localhost/your_db_name"]
+
+[mcp_servers.rails]
+command = "rails-mcp-server"
+
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
+[mcp_servers.heimdall-local]
+url = "http://localhost:8003/mcp"
+omit_tools_from = ["code_mode"]
+tool_timeout_sec = 1800.0
+
+[mcp_servers.heimdall-local.oauth]
+client_id = "f8fec40831f0172a7842af802592363fc6b023780cc08b734cf20df6c0735ce6"
+callback_port = 8765
+
+[mcp_servers.heimdall-local.tools.get_operation_status]
+approval_mode = "approve"
+
+[mcp_servers.heimdall-local.tools.get_skill]
+approval_mode = "approve"
+
+[mcp_servers.heimdall-local.tools.list_applications]
+approval_mode = "approve"
+
+[mcp_servers.heimdall-local.tools.read_skill_resource]
+approval_mode = "approve"
+
+[mcp_servers.heimdall-local.tools.record_team_gripe]
+approval_mode = "approve"
+
+[mcp_servers.heimdall-local.tools.search_skills]
+approval_mode = "approve"
+
+[mcp_servers.heimdall]
+url = "https://heimdall.swoop.com/mcp"
+omit_tools_from = ["code_mode"]
+
+[mcp_servers.langsmith]
+command = "/Users/ianmacomber/.local/bin/uvx"
+args = ["langsmith-mcp-server"]
+env_vars = ["LANGSMITH_API_KEY", "LANGSMITH_WORKSPACE_ID"]
+
+[shell_environment_policy.set]
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "091a81603ff202a16ed56557709bf42d97caf8f0dd2e07ae9e26d7c014d71035"
+
+[desktop]
+conversationDetailMode = "STEPS_PROSE"
+ambient-suggestions-enabled = true
+followUpQueueMode = "queue"
+avatar-overlay-pet-visible = false
+
+[desktop.open-in-target-preferences]
+global = "ghostty"
+
+[projects."/Users/ianmacomber/Documents/Codex/2026-07-17/i-m"]
+trust_level = "trusted"
+
+[projects."/Users/ianmacomber/Documents/Codex/2026-08-20/i"]
+trust_level = "trusted"
+
+[projects."/Users/ianmacomber/Documents/Codex/2026-08-20/i-need-to-name-a-new"]
+trust_level = "trusted"
+
+[projects."/Users/ianmacomber/Documents/Codex/2026-08-24/ho"]
+trust_level = "trusted"
+
+[projects."/Users/ianmacomber/Documents/Codex/2026-09-01/p"]
+trust_level = "trusted"
+
+[projects."/Users/ianmacomber/Documents/Codex/2026-09-04/why"]
+trust_level = "trusted"
+
+[projects."/Users/ianmacomber/Documents/Codex/2026-09-09/i-m"]
+trust_level = "trusted"
+
+[projects."/Users/ianmacomber/dev/spx/heimdall"]
+trust_level = "trusted"
+
+[projects."/Users/ianmacomber/dev/spx/rcis-workspace"]
+trust_level = "trusted"
+
+[hooks.state]
+
+[hooks.state."/Users/ianmacomber/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:f9fa7d0e189dd338e949f2e46302a7cf63cdd97fe47b0f3b38155d6328897742"
+
+[hooks.state."browser@openai-bundled:plugin.json#hooks[0]:subagent_stop:0:0"]
+trusted_hash = "sha256:2d941ada38ef1d54b6f5751c877d2219e81069061b50da10e4a8d7cd8896114d"
+
+[hooks.state."browser@openai-bundled:plugin.json#hooks[0]:stop:0:0"]
+trusted_hash = "sha256:317a07045dfc95aef2e80c55428a2f817e2768be867e3b1ef29a73da8636ae7f"
+
+[hooks.state."unified-computer-use@openai-bundled:plugin.json#hooks[0]:subagent_stop:0:0"]
+trusted_hash = "sha256:9dc8e6e56fe1aaed56eba99d13697c5e0737ee0980c5437991b3480efef75667"
+
+[hooks.state."unified-computer-use@openai-bundled:plugin.json#hooks[0]:stop:0:0"]
+trusted_hash = "sha256:f41fe6e03250f6b7048987873f93fb818aaef2f9a068e21a9899a7ac3d78659b"
+
+[hooks.state."/Users/ianmacomber/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:be8a7bfbd46b71ab647c876582c20cd523a78c92251149376890efc92107542c"
+
+[tui]
+screen_reader_detection_done = true
+
+[tui.model_availability_nux]
+"gpt-6.1-sol" = 4
+
+[notice.model_migrations]
+"gpt-5.6-terra" = "gpt-6-sol"
+
+[mcp_servers.aws-mcp]
+command = "/opt/homebrew/bin/aws-vault"
+args = ["exec", "--ecs-server", "--lazy", "--prompt=osascript", "rc-workspace", "--", "/Users/ianmacomber/.local/bin/uvx", "mcp-proxy-for-aws-cli==1.8.0", "https://aws-mcp.us-east-1.api.aws/mcp", "--skip-auth", "--metadata", "INSTALL_SOURCE=agent-toolkit-core", "--profile", "rc-workspace"]
+startup_timeout_sec = 120.0
